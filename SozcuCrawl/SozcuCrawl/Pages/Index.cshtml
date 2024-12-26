@@ -1,0 +1,268 @@
+﻿@page
+@model IndexModel
+@{
+    var alldataJson = ViewData["AllData"]?.ToString();
+    var allData = JsonConvert.DeserializeObject<dynamic>(alldataJson);
+
+    var selectedCategory = Model.SelectedCategory;
+    var searchResults = Model.SearchResults;
+
+}
+
+<div class="container">
+
+    <h2>@(searchResults != null ? "Arama Sonuçları" : selectedCategory)</h2>
+    
+    @if (searchResults != null)
+    {
+        @if (searchResults.MatchingAuthors.Any())
+        {
+            <h3>Yazarlar</h3>
+            <div class="row mt-4">
+                @foreach (var author in searchResults.MatchingAuthors)
+                {
+                    <div class="card mb-3">
+                        <div class="row g-0">
+                            <div class="col-md-2">
+                                <img src="@author.ImageUrl" class="img-fluid rounded-start" alt="@author.Name">
+                            </div>
+                            <div class="col-md-10">
+                                <div class="card-body">
+                                    <h5 class="card-title">@author.Name</h5>
+                                    @foreach (var article in author.Articles)
+                                    {
+                                        <p class="card-text"><small class="text-muted">@article.Date</small></p>
+                                        <details>
+                                            <summary class="text-primary" style="cursor: pointer;">@article.Title </summary>
+
+                                            <div class="mt-2">
+                                                <p>@article.Content</p>
+                                            </div>
+                                        </details>
+
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+
+        @if (searchResults.MatchingAgendas.Any())
+        {
+            <h3>Gündem</h3>
+            <div class="row mt-4">
+                @foreach (var agenda in searchResults.MatchingAgendas)
+                {
+                    <div class="card mb-3">
+                        <div class="row g-0">
+                            <div class="col-md-3">
+                                <img src="@agenda.ImageUrl" class="img-fluid rounded-start" alt="@agenda.Title">
+                            </div>
+                            <div class="col-md-9">
+                                <div class="card-body">
+                                    <h5 class="card-title">@agenda.Title</h5>
+                                    <p class="card-text text-muted">@agenda.Description</p>
+                                    <small class="text-muted">@agenda.Date</small>
+                                    <details>
+                                        <summary class="text-primary" style="cursor: pointer;">Haberi Oku</summary>
+                                        <div class="mt-2">
+                                            <p>@agenda.Content</p>
+                                        </div>
+                                    </details>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+
+        @if (searchResults.MatchingSports.Any())
+        {
+            <h3>Spor</h3>
+            <div class="row mt-4">
+                @foreach (var sport in searchResults.MatchingSports)
+                {
+                    <div class="card mb-3">
+                        <div class="row g-0">
+                            <div class="col-md-3">
+                                <img src="@sport.ImageUrl" class="img-fluid rounded-start" alt="@sport.Title">
+                            </div>
+                            <div class="col-md-9">
+                                <div class="card-body">
+                                    <h5 class="card-title">@sport.Title</h5>
+                                    <p class="card-text text-muted">@sport.Description</p>
+                                    <small class="text-muted">@sport.Date</small>
+                                    <small class="text-muted">@sport.SportType</small>
+                                    <details>
+                                        <summary class="text-primary" style="cursor: pointer;">Haberi Oku</summary>
+                                        <div class="mt-2">
+                                            <p>@sport.Content</p>
+                                        </div>
+                                    </details>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+
+        @if (searchResults.MatchingWorlds.Any())
+        {
+            <h3>Dünya</h3>
+            <div class="row mt-4">
+                @foreach (var world in searchResults.MatchingWorlds)
+                {
+                    <div class="card mb-3">
+                        <div class="row g-0">
+                            <div class="col-md-3">
+                                <img src="@world.ImageUrl" class="img-fluid rounded-start" alt="@world.Title">
+                            </div>
+                            <div class="col-md-9">
+                                <div class="card-body">
+                                    <h5 class="card-title">@world.Title</h5>
+                                    <p class="card-text text-muted">@world.Description</p>
+                                    <small class="text-muted">@world.Date</small>
+                                    <details>
+                                        <summary class="text-primary" style="cursor: pointer;">Haberi Oku</summary>
+                                        <div class="mt-2">
+                                            <p>@world.Content</p>
+                                        </div>
+                                    </details>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    }
+
+    else
+    {
+        @if (selectedCategory.ToLower() == "yazarlar")
+        {
+            <div class="row mt-4">
+                @foreach (var author in allData.Authors)
+                {
+                    <div class="card mb-3">
+                        <div class="row g-0">
+                            <div class="col-md-2">
+                                <img src="@author.ImageUrl" class="img-fluid rounded-start" alt="@author.Name">
+                            </div>
+                            <div class="col-md-10">
+                                <div class="card-body">
+                                    @foreach (var article in author.Articles)
+                                    {
+                                        <h5 class="card-title">@author.Name</h5>
+                                        <p class="card-text"><small class="text-muted">@article.Date</small></p>
+                                        <details>
+                                            <summary class="text-primary" style="cursor: pointer;">@article.Title </summary>
+
+                                            <div class="mt-2">
+                                                <p>@article.Content</p>
+                                            </div>
+                                        </details>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else if (selectedCategory.ToLower() == "gundem")
+        {
+            <div class="row mt-4">
+                @foreach (var agenda in allData.Agendas)
+                {
+                    <div class="card mb-3">
+                        <div class="row g-0">
+                            <div class="col-md-3">
+                                <img src="@agenda.ImageUrl" class="img-fluid rounded-start" alt="@agenda.Title">
+                            </div>
+                            <div class="col-md-9">
+                                <div class="card-body">
+                                    <h5 class="card-title">@agenda.Title</h5>
+                                    <p class="card-text text-muted">@agenda.Description</p>
+                                    <p class="card-text"><small class="text-muted">@agenda.Date</small></p>
+                                    <details>
+                                        <summary class="text-primary" style="cursor: pointer;">Haberi Oku</summary>
+                                        <div class="mt-2">
+                                            <p>@agenda.Content</p>
+                                        </div>
+                                    </details>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else if (selectedCategory.ToLower() == "spor")
+        {
+            <div class="row mt-4">
+                @foreach (var sport in allData.Sports)
+                {
+                    <div class="card mb-3">
+                        <div class="row g-0">
+                            <div class="col-md-3">
+                                <img src="@sport.ImageUrl" class="img-fluid rounded-start" alt="@sport.Title">
+                            </div>
+                            <div class="col-md-9">
+                                <div class="card-body">
+                                    <h5 class="card-title">@sport.Title</h5>
+                                    <p class="card-text text-muted">@sport.Description</p>
+                                    <p class="card-text text-muted">@sport.SportType</p>
+                                    <p class="card-text"><small class="text-muted">@sport.Date</small></p>
+                                    <details>
+                                        <summary class="text-primary" style="cursor: pointer;">Haberi Oku</summary>
+                                        <div class="mt-2">
+                                            <p>@sport.Content</p>
+                                        </div>
+                                    </details>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+        }
+        else if (selectedCategory.ToLower() == "dunya")
+        {
+            <div class="row mt-4">
+                @foreach (var world in allData.Worlds)
+                {
+                    <div class="card mb-3">
+                        <div class="row g-0">
+                            <div class="col-md-3">
+                                <img src="@world.ImageUrl" class="img-fluid rounded-start" alt="@world.Title">
+                            </div>
+                            <div class="col-md-9">
+                                <div class="card-body">
+                                    <h5 class="card-title">@world.Title</h5>
+                                    <p class="card-text text-muted">@world.Description</p>
+                                    <p class="card-text"><small class="text-muted">@world.Date</small></p>
+                                    <details>
+                                        <summary class="text-primary" style="cursor: pointer;">Haberi Oku</summary>
+                                        <div class="mt-2">
+                                            <p>@world.Content</p>
+                                        </div>
+                                    </details>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    }
+    
+</div>
+
+
+

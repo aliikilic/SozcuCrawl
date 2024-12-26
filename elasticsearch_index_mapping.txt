@@ -1,0 +1,151 @@
+PUT /sozcucrawl
+{
+  "mappings": {
+    "properties": {
+      "authors": {
+        "type": "nested",
+        "properties": {
+          "name": {
+            "type": "text",
+            "analyzer": "standard",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "image_url": {
+            "type": "keyword"
+          },
+          "articles": {
+            "type": "nested",
+            "properties": {
+              "title": {
+                "type": "text",
+                "analyzer": "standard",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "content": {
+                "type": "text",
+                "analyzer": "standard"
+              },
+              "date": {
+                "type": "date",
+                "format": "yyyy-MM-dd'T'HH:mm:ss||yyyy-MM-dd||epoch_millis"
+              }
+            }
+          }
+        }
+      },
+      "agendas": {
+            "type": "nested",
+            "properties": {
+              "title": {
+                "type": "text",
+                "analyzer": "standard",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "decription":{
+                "type":"text",
+                "analyzer":"standard",
+                "fields":{
+                  "keyword":{
+                    "type":"keyword"
+                  }
+                }
+              },
+              "content": {
+                "type": "text",
+                "analyzer": "standard"
+              },
+              "date": {
+                "type": "date",
+                "format": "yyyy-MM-dd'T'HH:mm:ss||yyyy-MM-dd||epoch_millis"
+              },
+              "image_url": {
+                "type": "keyword"}
+            }
+          },
+      "sports": {
+        "type": "nested",
+        "properties": {
+          "sport_type": {
+            "type": "keyword"
+          },
+          "img_url": {
+            "type": "keyword"
+          },
+          "title": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            },
+            "analyzer": "standard"
+          },
+          "description": {
+            "type": "text",
+            "analyzer": "standard"
+          },
+          "content": {
+            "type": "text",
+            "analyzer": "standard"
+          },
+          "date": {
+            "type": "date",
+            "format": "yyyy-MM-dd'T'HH:mm:ss||yyyy-MM-dd||epoch_millis"
+          }
+        }
+    
+      },
+       "worlds": {
+            "type": "nested",
+            "properties": {
+              "title": {
+                "type": "text",
+                "analyzer": "standard",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "decription":{
+                "type":"text",
+                "analyzer":"standard",
+                "fields":{
+                  "keyword":{
+                    "type":"keyword"
+                  }
+                }
+              },
+              "content": {
+                "type": "text",
+                "analyzer": "standard"
+              },
+              "date": {
+                "type": "date",
+                "format": "yyyy-MM-dd'T'HH:mm:ss||yyyy-MM-dd||epoch_millis"
+              },
+              "image_url": {
+                "type": "keyword"}
+            }
+          }
+      
+    }
+  }
+}
